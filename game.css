@@ -3,23 +3,29 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     background-size: cover;
     display:flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: centre;
 }
 h1{
     color:brown;
     text-align: center;
-    font-size: 150px;
+    font-size: 120px;
 }
 .board{
     display:grid;
     grid-template-columns: repeat(3,80px);
     grid-template-rows: repeat(3,80px);
     gap:10px;
+    margin-bottom: 20px;
+    background-color: brown;
+    border-radius: 10px;
+    padding:10px;
 }
 .cell{
     background-color: bisque;
-    border: 2px brown;
     display:flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor:pointer;
@@ -31,7 +37,28 @@ h1{
 .cell.o{
     color:blue;
 }
-button{
+#restartbutton{
+    margin-top: 20px;
     padding: 20px 30px;
     font-size:16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: #007BFF;
+    color: white;
+    transition: 0.3s;
+}
+#restartbutton:hover{
+    background-color: grey;
+}
+.winning-message {
+  display: none;
+  text-align: center;
+}
+.winning-message.show {
+  display: block;
+  font-size: 1.5rem;
+  color: green;
+  margin-top: 10px;
 }
