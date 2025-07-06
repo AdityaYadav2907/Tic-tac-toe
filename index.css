@@ -23,10 +23,25 @@ button{
     padding: 30px 30px;
     font-size:15px;
     border-bottom: 0cap;
+    transition: 0.3s;
 }
 button:hover{
     background-color: aquamarine;
 }
 div{
     margin-top: 50px;
+}
+#developer-box{
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: bisque;
+    color:brown;
+    padding:10px 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+    transition: 0.3s;
+}
+#developer-box:hover{
+    background-color: beige;
 }
