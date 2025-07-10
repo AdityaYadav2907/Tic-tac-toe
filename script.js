@@ -22,29 +22,33 @@ window.addEventListener('DOMContentLoaded', () => {
 
   restartButton.addEventListener('click', startGame);
 
-  function startGame() {
-    oTurn = false;
-    cellElements.forEach(cell => {
-      cell.classList.remove('x', 'o');
-      cell.removeEventListener('click', handleClick);
-      cell.addEventListener('click', handleClick, { once: true });
-    });
-    winningMessage.classList.remove('show');
-  }
+function startGame() {
+  oTurn = false;
+  cellElements.forEach(cell => {
+    cell.classList.remove('x', 'o');
+    cell.textContent = ''; // ✅ Clear previous X/O
+    cell.removeEventListener('click', handleClick);
+    cell.addEventListener('click', handleClick, { once: true });
+  });
+  winningMessage.classList.remove('show');
+}
+
 
   function handleClick(e) {
-    const cell = e.target;
-    const currentClass = oTurn ? 'o' : 'x';
-    cell.classList.add(currentClass);
+  const cell = e.target;
+  const currentClass = oTurn ? 'o' : 'x';
+  cell.classList.add(currentClass);
+  cell.textContent = oTurn ? 'O' : 'X'; // ✅ Add this line
 
-    if (checkWin(currentClass)) {
-      endGame(false);
-    } else if (isDraw()) {
-      endGame(true);
-    } else {
-      oTurn = !oTurn;
-    }
+  if (checkWin(currentClass)) {
+    endGame(false);
+  } else if (isDraw()) {
+    endGame(true);
+  } else {
+    oTurn = !oTurn;
   }
+}
+
 
   function endGame(draw) {
     if (draw) {

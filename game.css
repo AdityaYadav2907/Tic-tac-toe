@@ -39,7 +39,7 @@ h1{
 .cell.o{
     color:blue;
 }
-#restartbutton{
+#restartButton{
     margin-top: 20px;
     padding: 20px 30px;
     font-size:16px;
@@ -51,7 +51,7 @@ h1{
     color: white;
     transition: 0.3s;
 }
-#restartbutton:hover{
+#restartButton:hover{
     background-color: grey;
 }
 .winning-message {
