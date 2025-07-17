@@ -12,7 +12,7 @@ body{
 h1{
     color:brown;
     text-align: center;
-    font-size: 120px;
+    font-size: 80px;
 }
 .board{
     display:grid;
@@ -47,9 +47,10 @@ h1{
     cursor: pointer;
     border: none;
     border-radius: 8px;
-    background-color: #007BFF;
-    color: white;
+    background-color: bisque;
+    color: brown;
     transition: 0.3s;
+    font-weight: bold;
 }
 #restartButton:hover{
     background-color: grey;
@@ -63,4 +64,11 @@ h1{
   font-size: 1.5rem;
   color: green;
   margin-top: 10px;
+}
+.headdiv{
+    background-color: bisque;
+    width: 80%;
+    border-radius: 50px;
+    margin-bottom: 50px;
+    margin-top: 30px;
 }
