@@ -1,75 +1,78 @@
-window.addEventListener('DOMContentLoaded', () => {
-  const cellElements = document.querySelectorAll('[data-cell]');
-  const board = document.getElementById('board');
-  const winningMessage = document.getElementById('winningMessage');
-  const winningMessageText = document.getElementById('winningMessageText');
-  const restartButton = document.getElementById('restartButton');
+const boxes = document.querySelectorAll(".cell");
+let xtrue = true;
+let board = ["", "", "", "", "", "", "", "", ""];
 
-  const WINNING_COMBINATIONS = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-  ];
+const winning_combo = [
+  [0, 1, 2], 
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6]
+];
 
-  let oTurn;
-
-  startGame();
-
-  restartButton.addEventListener('click', startGame);
-
-function startGame() {
-  oTurn = false;
-  cellElements.forEach(cell => {
-    cell.classList.remove('x', 'o');
-    cell.textContent = ''; // ✅ Clear previous X/O
-    cell.removeEventListener('click', handleClick);
-    cell.addEventListener('click', handleClick, { once: true });
-  });
-  winningMessage.classList.remove('show');
-}
-
-
-  function handleClick(e) {
-  const cell = e.target;
-  const currentClass = oTurn ? 'o' : 'x';
-  cell.classList.add(currentClass);
-  cell.textContent = oTurn ? 'O' : 'X'; // ✅ Add this line
-
-  if (checkWin(currentClass)) {
-    endGame(false);
-  } else if (isDraw()) {
-    endGame(true);
-  } else {
-    oTurn = !oTurn;
-  }
-}
-
-
-  function endGame(draw) {
-    if (draw) {
-      winningMessageText.textContent = 'Draw!';
-    } else {
-      winningMessageText.textContent = `${oTurn ? "O's" : "X's"} Wins!`;
+boxes.forEach(function (box) {
+  box.onclick = function () {
+    if (box.textContent === "" && !checkwinner()) {
+      if (xtrue) {
+        xshow(box);
+        xtrue = false;
+      } else {
+        oshow(box);
+        xtrue = true;
+      }
+      checkwinner();
     }
-    winningMessage.classList.add('show');
-  }
-
-  function isDraw() {
-    return [...cellElements].every(cell => {
-      return cell.classList.contains('x') || cell.classList.contains('o');
-    });
-  }
-
-  function checkWin(currentClass) {
-    return WINNING_COMBINATIONS.some(combination => {
-      return combination.every(index => {
-        return cellElements[index].classList.contains(currentClass);
-      });
-    });
-  }
+  };
 });
+
+let xScore = 0;
+let oScore = 0;
+function checkwinner() {
+  for (let i = 0; i < winning_combo.length; i++) {
+    const [a, b, c] = winning_combo[i];
+    if (board[a] !== "" && board[a] === board[b] && board[b] === board[c]) {
+      const winner = board[a];
+      document.getElementById("winningMessageText").textContent = winner + " has won!";
+      document.getElementById("winningMessage").style.display = "block";
+
+      if (winner === "X") {
+        xScore++;
+        document.getElementById("xScore").textContent = xScore;
+      } else if (winner === "O") {
+        oScore++;
+        document.getElementById("oScore").textContent = oScore;
+      }
+
+      return true;
+    }
+  }
+  return false;
+}
+
+
+function xshow(box) {
+  box.textContent = "X";
+  box.classList.add("x");
+  const i = parseInt(box.id);
+  board[i] = "X";
+}
+
+function oshow(box) {
+  box.textContent = "O";
+  box.classList.add("o");
+  const i = parseInt(box.id);
+  board[i] = "O";
+}
+
+document.getElementById("restartButton").onclick = function () {
+  boxes.forEach(function (box) {
+    box.textContent = "";
+    box.classList.remove("x", "o");
+  });
+  board = ["", "", "", "", "", "", "", "", ""];
+  document.getElementById("winningMessageText").textContent = "";
+  document.getElementById("winningMessage").style.display = "none";
+};
